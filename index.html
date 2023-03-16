@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="leaflet/leaflet.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>Кексобукинг</title>
+
 </head>
 
 <body>
@@ -99,7 +100,7 @@
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="address">Адреса (координати)</label>
-          <input id="address" name="address" type="text">
+          <input id="address" name="address" type="text" readonly>
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="type">Тип житла</label>
@@ -233,8 +234,9 @@
     </div>
   </template>
 
+  <script src="./leaflet/leaflet.js"></script>
+  <script async src="./js/main.js" type="module"></script>
 
-  <script src="./js/main.js" type="module"></script>
 </body>
 
 </html>
