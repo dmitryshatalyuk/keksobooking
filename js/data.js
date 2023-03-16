@@ -1,6 +1,34 @@
-import { getRandomValue } from "./getRandomValue.js";
+import { getRandomValue, getRandomLocationValue } from "./util.js";
+
+const DEFAULT_PROPS = {
+  locationX: {
+    min: 35.65,
+    max: 35.7,
+  },
+  locationY: {
+    min: 139.7,
+    max: 139.8,
+  },
+  avatars: {
+    min: 1,
+    max: 8,
+  },
+  price: {
+    min: 1000,
+    max: 100000,
+  },
+  rooms: {
+    min: 1,
+    max: 10,
+  },
+  guests: {
+    min: 1,
+    max: 10,
+  },
+};
 
 const PROPERTY = {
+  offers: 10,
   titles: [
     "Grand Hyatt",
     "Marriott",
@@ -17,12 +45,12 @@ const PROPERTY = {
   checkin: ["12:00", "13:00", "14:00"],
   checkout: ["12:00", "13:00", "14:00"],
   features: [
-    "wifi",
-    "dishwasher",
-    "parking",
-    "washer",
-    "elevator",
-    "conditioner",
+    "Wifi",
+    "Dishwasher",
+    "Parking",
+    "Washer",
+    "Elevator",
+    "Conditioner",
   ],
   getFeature: () => {
     const featuresArr = [];
@@ -43,44 +71,59 @@ const PROPERTY = {
     "From our stylish accommodations to our exceptional amenities and services, our hotel is the perfect choice for discerning travelers.",
     "Experience the best of both worlds at our hotel, where you can enjoy the tranquility of a peaceful retreat with the convenience of a prime location.",
   ],
-  photos: new Array(getRandomValue(2, 10)).fill(null).map((el, index) => {
-    return `http://o0.github.io/assets/images/tokyo/hotel${index + 1}.jpg,`;
-  }),
+  photos: () => {
+    return new Array(getRandomValue(2, 10)).fill(null).map((el, index) => {
+      return `http://o0.github.io/assets/images/tokyo/hotel${index + 1}.jpg`;
+    });
+  },
   location: () => {
     return {
-      x: getRandomLocationValue(20, 40).toFixed(5),
-      y: getRandomLocationValue(60, 80).toFixed(5),
+      x: getRandomLocationValue(
+        DEFAULT_PROPS.locationX.min,
+        DEFAULT_PROPS.locationX.max
+      ).toFixed(5),
+      y: getRandomLocationValue(
+        DEFAULT_PROPS.locationY.min,
+        DEFAULT_PROPS.locationY.max
+      ).toFixed(5),
     };
   },
 };
 
-function getRandomLocationValue(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
 function createAuthor() {
+  const address = PROPERTY.location();
+
   return {
     author: {
-      avatar: `img/avatars/user0${getRandomValue(1, 8)}.png`,
-      offer: {
-        title: PROPERTY.titles[getRandomValue(0, PROPERTY.titles.length - 1)],
-        address: PROPERTY.location(),
-        price: getRandomValue(100, 100000),
-        type: PROPERTY.types[getRandomValue(0, PROPERTY.types.length - 1)],
-        rooms: getRandomValue(1, 10),
-        guests: getRandomValue(1, 10),
-        checkin:
-          PROPERTY.checkin[getRandomValue(0, PROPERTY.checkin.length - 1)],
-        checkout:
-          PROPERTY.checkout[getRandomValue(0, PROPERTY.checkout.length - 1)],
-        features: PROPERTY.getFeature(),
-        photos: PROPERTY.photos,
-        location: PROPERTY.location(),
-      },
+      avatar: `img/avatars/user0${getRandomValue(
+        DEFAULT_PROPS.avatars.min,
+        DEFAULT_PROPS.avatars.max
+      )}.png`,
+    },
+    offer: {
+      title: PROPERTY.titles[getRandomValue(0, PROPERTY.titles.length - 1)],
+      description:
+        PROPERTY.descriptions[
+          getRandomValue(0, PROPERTY.descriptions.length - 1)
+        ],
+      address: address,
+      price: getRandomValue(DEFAULT_PROPS.price.min, DEFAULT_PROPS.price.max),
+      type: PROPERTY.types[getRandomValue(0, PROPERTY.types.length - 1)],
+      rooms: getRandomValue(DEFAULT_PROPS.rooms.min, DEFAULT_PROPS.rooms.max),
+      guests: getRandomValue(
+        DEFAULT_PROPS.guests.min,
+        DEFAULT_PROPS.guests.max
+      ),
+      checkin: PROPERTY.checkin[getRandomValue(0, PROPERTY.checkin.length - 1)],
+      checkout:
+        PROPERTY.checkout[getRandomValue(0, PROPERTY.checkout.length - 1)],
+      features: PROPERTY.getFeature(),
+      photos: PROPERTY.photos(),
+      location: address,
     },
   };
 }
 
-export const mockData = new Array(10).fill(null).map((el) => {
+export const mockData = new Array(PROPERTY.offers).fill(null).map(() => {
   return createAuthor();
 });
