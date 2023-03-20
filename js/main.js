@@ -1,5 +1,8 @@
-import { mockData } from "./data.js";
-import { createCard } from "./createCards.js";
+import { init, preload } from "./pageLoad.js";
 
-createCard(mockData);
-console.log(mockData);
+if (document.readyState == "loading") {
+  preload();
+  document.addEventListener("DOMContentLoaded", init());
+} else {
+  init();
+}

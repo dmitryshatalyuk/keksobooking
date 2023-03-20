@@ -72,7 +72,7 @@ const PROPERTY = {
     "Experience the best of both worlds at our hotel, where you can enjoy the tranquility of a peaceful retreat with the convenience of a prime location.",
   ],
   photos: () => {
-    return new Array(getRandomValue(2, 10)).fill(null).map((el, index) => {
+    return new Array(getRandomValue(1, 3)).fill(null).map((el, index) => {
       return `http://o0.github.io/assets/images/tokyo/hotel${index + 1}.jpg`;
     });
   },
