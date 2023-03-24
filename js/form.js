@@ -24,9 +24,14 @@ const checkinInput = document.querySelector("#timein");
 const checkoutInput = document.querySelector("#timeout");
 const capacityInput = document.querySelector("#capacity");
 const roomsInput = document.querySelector("#room_number");
+const userAvatarPreview = document.querySelector(
+  ".ad-form-header__preview img"
+);
+const photosContainer = document.querySelector(".ad-form__photo-container");
 
 export function adForm(form) {
   form.addEventListener("input", (evt) => {
+    // console.log(evt.target.name, evt.target.value);
     switch (evt.target.name) {
       case "type":
         changeInputMinPrice(evt.target.value, pricePerNightInput);
@@ -46,6 +51,14 @@ export function adForm(form) {
 
       case "capacity":
         validateCapacity(evt.target.value, roomsInput);
+        break;
+
+      case "avatar":
+        updateAvatarPreview(evt.target, userAvatarPreview);
+        break;
+
+      case "images":
+        updatePhotosPreview(evt.target, photosContainer);
         break;
     }
   });
@@ -100,4 +113,35 @@ function validateCapacity(capacity, roomsNode) {
       `option[value="${item != 0 ? item : 100}"]`
     ).disabled = false;
   });
+}
+
+function updateAvatarPreview(image, preview) {
+  const fileReader = new FileReader();
+
+  fileReader.addEventListener("load", (evt) => {
+    preview.src = evt.target.result;
+    image.value = evt.target.result;
+  });
+
+  fileReader.readAsDataURL(image.files[0]);
+}
+
+function updatePhotosPreview(photos, container) {
+  const fragment = new DocumentFragment();
+  const photosArray = Array.from(photos.files);
+
+  photosArray.forEach((photo, index) => {
+    const fileReader = new FileReader();
+    const imageNode = document.createElement("img");
+    imageNode.classList.add("ad-form__photo");
+
+    fileReader.addEventListener("load", (evt) => {
+      imageNode.src = evt.target.result;
+    });
+
+    fileReader.readAsDataURL(photo);
+    fragment.append(imageNode);
+  });
+
+  container.append(fragment);
 }
