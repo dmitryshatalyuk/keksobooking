@@ -26,7 +26,7 @@
 
       <!-- Фильтрация объявлений -->
       <div class="map__filters-container">
-        <form action="#" class="map__filters" autocomplete="off">
+        <form action="#" autofill class="map__filters" autocomplete="off">
           <select name="housing-type" id="housing-type" class="map__filter">
             <option value="any" selected>Будь-який тип житла</option>
             <option value="palace">Палац</option>
@@ -176,10 +176,10 @@
           <label class="ad-form__label">Фото житла</label>
           <div class="ad-form__photo-container">
             <div class="ad-form__upload">
-              <input type="file" id="images" name="images" class="ad-form__input visually-hidden">
+              <input type="file" id="images" name="images" class="ad-form__input visually-hidden" multiple="multiple">
               <label for="images" class="ad-form__drop-zone">Завантажити<br>фото...</label>
             </div>
-            <div class="ad-form__photo"></div>
+            <div class="ad-form__photo visually-hidden"></div>
           </div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--submit">
@@ -223,6 +223,7 @@
   <template id="success">
     <div class="success">
       <p class="success__message">Ваше оголошення<br>успішно розміщено!</p>
+      <button class="success__button">Закрити</button>
     </div>
   </template>
 
