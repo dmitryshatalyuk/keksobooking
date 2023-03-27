@@ -31,7 +31,6 @@ const photosContainer = document.querySelector(".ad-form__photo-container");
 
 export function adForm(form) {
   form.addEventListener("input", (evt) => {
-    // console.log(evt.target.name, evt.target.value);
     switch (evt.target.name) {
       case "type":
         changeInputMinPrice(evt.target.value, pricePerNightInput);
@@ -96,8 +95,6 @@ function validateRoomQuantity(rooms, capacityNode) {
 }
 
 function validateCapacity(capacity, roomsNode) {
-  console.log(capacity);
-
   if (capacity == 0) {
     roomsNode.value = 100;
   } else {
@@ -120,7 +117,6 @@ function updateAvatarPreview(image, preview) {
 
   fileReader.addEventListener("load", (evt) => {
     preview.src = evt.target.result;
-    image.value = evt.target.result;
   });
 
   fileReader.readAsDataURL(image.files[0]);
