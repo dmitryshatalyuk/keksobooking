@@ -2,10 +2,11 @@ import { createCards } from "./createCards.js";
 import { adForm } from "./form.js";
 import { renderMap } from "./renderMap.js";
 import { sendToServer } from "./sendToServer.js";
-import { filterOffers } from "./filterOffers.js";
+// import { filterOffers } from "./filterOffers.js";
 
 const form = document.querySelector(".ad-form");
-const mapCanvas = document.querySelector("#map-canvas");
+export const mapCanvas = document.querySelector("#map-canvas");
+const filterForm = document.querySelector(".map__filters");
 
 export function preload() {
   document.querySelectorAll(":not(.map__canvas)").forEach((item) => {
@@ -22,11 +23,8 @@ export async function init() {
     })
     .then((data) => {
       const offersData = data;
-      const cards = createCards(offersData).querySelectorAll(".popup");
-
       adForm(form);
-      renderMap(mapCanvas, offersData, Array.from(cards));
-      filterOffers(offersData);
+      renderMap(offersData);
     })
     .catch((err) => {
       console.log(err);

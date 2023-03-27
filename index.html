@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="utf-8">
+
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600" rel="stylesheet">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="leaflet/leaflet.css">
@@ -36,9 +38,9 @@
           </select>
           <select name="housing-price" id="housing-price" class="map__filter">
             <option value="any" selected>Люба</option>
-            <option value="middle">10000 - 50000&#x20bd;</option>
-            <option value="low">до 10000&#x20bd;</option>
-            <option value="high">от 50000&#x20bd;</option>
+            <option value="low">до 5000</option>
+            <option value="middle">5000 - 7500</option>
+            <option value="high">від 7500</option>
           </select>
           <select name="housing-rooms" id="housing-rooms" class="map__filter">
             <option value="any" selected>Любе число кімнат</option>
@@ -48,8 +50,9 @@
           </select>
           <select name="housing-guests" id="housing-guests" class="map__filter">
             <option value="any" selected>Будь-яка кількість гостей</option>
-            <option value="2">Два гостя</option>
             <option value="1">Один гість</option>
+            <option value="2">Два гостя</option>
+            <option value="3">Три гостя</option>
             <option value="0">Не для гостей</option>
           </select>
           <fieldset id="housing-features" class="map__features">
@@ -89,21 +92,22 @@
               <input type="file" id="avatar" name="avatar" class="ad-form-header__input visually-hidden">
               <label class="ad-form-header__drop-zone" for="avatar">Завантажити<br>фото...</label>
             </div>
-            <p class="ad-form-header__info">Заповніть всі обов'язкові поля, призначте ціну, завантажте аватар та фото
-              житла. Придумайте цікавий опис. Воно зробить оголошення більш живим та привабливим. Отримане оголошення
-              має давати гостям повне уявлення про ваше житло.</p>
+            <p class="ad-form-header__info">Для того, щоб ваше оголошення про житло було максимально привабливим та
+              живим, вам необхідно заповнити всі обов'язкові поля, включаючи призначення ціни, завантаження фотографій
+              житла та створення цікавого опису.
+            </p>
           </div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
-          <label class="ad-form__label" for="title">Заголовок оголошення</label>
+          <label class="ad-form__label" for="title">Заголовок оголошення:</label>
           <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка в центре Токио">
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
-          <label class="ad-form__label" for="address">Адреса (координати)</label>
+          <label class="ad-form__label" for="address">Адреса (координати):</label>
           <input id="address" name="address" type="text" readonly>
         </fieldset>
         <fieldset class="ad-form__element">
-          <label class="ad-form__label" for="type">Тип житла</label>
+          <label class="ad-form__label" for="type">Тип житла:</label>
           <select id="type" name="type">
             <option value="bungalow">Бунгало</option>
             <option value="flat" selected>Квартира</option>
@@ -112,24 +116,24 @@
           </select>
         </fieldset>
         <fieldset class="ad-form__element">
-          <label class="ad-form__label" for="price">Цена за ніч, грн.</label>
+          <label class="ad-form__label" for="price">Ціна за ніч, грн:</label>
           <input id="price" name="price" type="number" placeholder="1000">
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
-          <label class="ad-form__label" for="timein">Час заїзду та виїзду</label>
+          <label class="ad-form__label" for="timein">Час заїзду та виїзду:</label>
           <select id="timein" name="timein">
-            <option value="12:00" selected>Після 12</option>
-            <option value="13:00">Після 13</option>
-            <option value="14:00">Після 14</option>
+            <option value="12:00" selected>Після 12:00</option>
+            <option value="13:00">Після 13:00</option>
+            <option value="14:00">Після 14:00</option>
           </select>
           <select id="timeout" name="timeout" title="Time to go out">
-            <option value="12:00" selected>Виїзд до 12</option>
-            <option value="13:00">Виїзд до 13</option>
-            <option value="14:00">ВыВиїздезд до 14</option>
+            <option value="12:00" selected>До 12:00</option>
+            <option value="13:00">До 13:00</option>
+            <option value="14:00">До 14:00</option>
           </select>
         </fieldset>
         <fieldset class="ad-form__element">
-          <label class="ad-form__label" for="room_number">Количество комнат</label>
+          <label class="ad-form__label" for="room_number">Кількість кімнат:</label>
           <select id="room_number" name="rooms">
             <option value="1" selected>1 кімната</option>
             <option value="2">2 кімнати</option>
@@ -138,7 +142,7 @@
           </select>
         </fieldset>
         <fieldset class="ad-form__element">
-          <label class="ad-form__label" for="capacity">Кількість місць</label>
+          <label class="ad-form__label" for="capacity">Кількість місць:</label>
           <select id="capacity" name="capacity">
             <option value="3" selected>для 3 гостей</option>
             <option value="2">для 2 гостей</option>
@@ -168,9 +172,9 @@
           <label class="feature feature--conditioner" for="feature-conditioner">Кондиціонер</label>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
-          <label class="ad-form__label" for="description">Опіс (не обовьязково)</label>
+          <label class="ad-form__label" for="description">Опис (не обов'язково)</label>
           <textarea id="description" name="description"
-            placeholder="Здесь расскажите о том, какое ваше жилье замечательное и вообще"></textarea>
+            placeholder="Розкажіть про те, що робить ваше житло таким чудовим та особливим."></textarea>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label">Фото житла</label>
@@ -184,7 +188,8 @@
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--submit">
           <button class="ad-form__submit" type="submit">Опублікувати</button>
-          или <button class="ad-form__reset" type="reset">очистити</button>
+          або
+          <button class="ad-form__reset" type="reset">очистити</button>
         </fieldset>
       </form>
     </section>
